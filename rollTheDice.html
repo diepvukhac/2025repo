@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+    <title>DICE GAME</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    .container {
+      background: linear-gradient(45deg, #c2255c, #1971c2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .game-board {
+      display: flex;
+    }
+    .player {
+      width: 450px;
+      height: 480px;
+      background-color: #ced4da;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+    }
+    .player-name{
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
+    .playerTurn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      color: white;
+    }
+    .player2Turn {
+      position: absolute;
+      left: 70%;
+      top: 22%;
+    }
+    .player1Turn {
+      position: absolute;
+      left: 24%;
+      top: 22%;
+    }
+    .player01 {
+      background-color: #f06595;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+    .highlight {
+      box-shadow: 0 0 30px rgba(255, 255, 0, 0.66),
+        0 0 30px rgba(255, 255, 0, 0.671);
+      transition: box-shadow 0.2s ease;
+    }
+    .player02 {
+      background-color: #4dabf7;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .score {
+      font-size: 42px;
+    }
+    .current-core {
+      background-color: #51cf66;
+      border-radius: 10px;
+      padding: 10px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    p {
+      font-size: 28px;
+    }
+    .dice-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      gap: 50px;
+    }
+    img {
+      width: 80px;
+      height: 80px;
+      background-color: white;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    .dice {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      background-color: white;
+    }
+
+    button {
+      background-color: #ebfbee;
+      border: none;
+      padding: 10px 30px;
+      font-size: 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      box-shadow: 0 4px 6px rgba(97, 96, 96, 0.2);
+    }
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 4px rgba(97, 96, 96, 0.2);
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="game-board">
+        <div class="player player01">
+          <h1 class="player-name highlight" id="player1">👨‍🦱PLAYER 1</h1>
+          <div id="turnCounting" class="playerTurn player1Turn">
+            <h2 id="player1Count">0</h2>
+            <h4>Roll Number</h4>
+          </div>
+          <div class="current-core">
+            <h3>CURRENT</h3>
+            <p id="currentPlayer01">0</p>
+          </div>
+        </div>
+        <div class="dice-container">
+          <button id="reset-game" onclick="resetTheGame()">🔂NEW GAME</button>
+          <img src="/backend/dice-img-01.jpg" alt="dice-image" id="diceImage" />
+
+          <button id="rolling-dice" onclick="startGame()">🎲ROLL DICE</button>
+          <button id="switch-user" onclick="switchUserClick()">⚔️SWITCH</button>
+        </div>
+        <div class="player player02">
+          <h1 class="player-name" id="player2">👧PLAYER 2</h1>
+          <div id="turnCounting" class="playerTurn player2Turn">
+            <h2 id="player2Count">0</h2>
+            <h4>Roll Number</h4>
+          </div>
+          <div class="current-core">
+            <h3>CURRENT</h3>
+            <p id="currentPlayer02">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="rollTheDice.js"></script>
+  </body>
+</html>
