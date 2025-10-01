@@ -1,0 +1,36 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # chạy mỗi ngày lúc 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create daily log in folder
+        run: |
+          # Folder chứa log
+          folder="daily_logs"
+          mkdir -p "$folder"
+
+          # Đếm số file hiện có trong folder
+          count=$(ls "$folder"/log*.txt 2>/dev/null | wc -l)
+          new_file="$folder/log$((count+1)).txt"
+
+          # Tạo file mới
+          echo "Generated on $(date)" > "$new_file"
+
+          # Cấu hình Git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Commit & push
+          git add "$new_file"
+          git commit -m "Daily commit: $new_file"
+          git push
